@@ -13,7 +13,7 @@ npm start
 npm test
 ```
 
-Abra a porta 8080 no seu navegador local. Arraste para mover a raquete inferior, ou use as setas esquerda/direita com o campo focado. Escape ou espaço pausa; o botão Continuar retoma. O PWA precisa de HTTPS em produção; localhost é aceito para desenvolvimento. Depois da primeira visita, aguarde a instalação do service worker antes de usar offline. O botão Instalar aparece quando o navegador disponibiliza essa opção; também é possível usar o menu de instalação do navegador.
+Abra a porta 8080 no seu navegador local. Gire o celular para o modo paisagem. Arraste verticalmente para mover a raquete azul à esquerda, ou use as setas cima/baixo (ou W/S) com o campo focado. Ao iniciar, o jogo tenta ativar tela cheia e bloquear a orientação em paisagem. Quando a API não é suportada, gire o dispositivo manualmente; a arena continua ocupando toda a área disponível. Voltar ao retrato ou sair da tela cheia pausa a partida. Escape ou espaço pausa; o botão Continuar retoma. O PWA precisa de HTTPS em produção; localhost é aceito para desenvolvimento. Depois da primeira visita, aguarde a instalação do service worker antes de usar offline. O botão Instalar aparece quando o navegador disponibiliza essa opção; também é possível usar o menu de instalação do navegador.
 
 ## Publicar no Render (onrender.com)
 
@@ -43,3 +43,5 @@ O empacotamento Android depende do domínio final, da identidade do pacote e dos
 ## Validação
 
 `npm test` cobre física e pontuação. Testes de navegador devem conferir início, controle por toque, pausa/retomada, layout móvel, erros de console e carregamento offline. `render.yaml` publica os arquivos diretamente, sem etapa de compilação.
+
+As imagens do ZIP em `store-assets/` mostram a versão visual anterior. Atualize as capturas da loja antes de publicar a versão neon em paisagem. O manifesto agora pede `display: fullscreen` e `orientation: landscape`; o pacote TWA existente pode precisar ser regenerado para refletir essas opções.
