@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {createGame,step,serve} from '../engine.js';
+test('raquete do jogador fica dentro do campo',()=>{const g=createGame();step(g,.016,-100);assert.equal(g.px,80);step(g,.016,1200);assert.equal(g.px,720);});
+test('bola rebate na raquete inferior e acelera',()=>{const g=createGame();g.waiting=0;g.ball={x:400,y:890,vx:0,vy:400};assert.equal(step(g,.03,400),'hit');assert.ok(g.ball.vy<0);assert.ok(Math.abs(g.ball.vy)>400);});
+test('bola rebate na raquete do computador',()=>{const g=createGame();g.waiting=0;g.ball={x:400,y:110,vx:0,vy:-400};assert.equal(step(g,.03,400),'hit');assert.ok(g.ball.vy>0);});
+test('errar raquete concede ponto ao adversário',()=>{const g=createGame();g.waiting=0;g.ball={x:50,y:1019,vx:0,vy:400};assert.equal(step(g,.02,400),'point');assert.equal(g.computer,1);assert.equal(g.player,0);assert.ok(g.waiting>0);});
+test('sétimo ponto termina a partida e congela o resultado',()=>{const g=createGame();g.player=6;g.waiting=0;g.ball={x:700,y:-19,vx:0,vy:-400};assert.equal(step(g,.02,400),'win');assert.equal(g.winner,'player');step(g,1,400);assert.equal(g.player,7);});
+test('paredes refletem a bola sem sair do campo',()=>{const g=createGame();g.waiting=0;g.ball={x:13,y:400,vx:-300,vy:100};step(g,.02,400);assert.ok(g.ball.vx>0);assert.equal(g.ball.x,12);});
+test('saque reinicia bola e mantém placar',()=>{const g=createGame();g.player=3;serve(g,-1);assert.equal(g.player,3);assert.equal(g.ball.y,500);assert.ok(g.ball.vy<0);});
